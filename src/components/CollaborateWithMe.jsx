@@ -21,7 +21,7 @@ const CollaborateWithMe = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/collaborations", {
+      const response = await fetch("https://paalas-backend.onrender.com/api/collaborations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

@@ -35,7 +35,7 @@ const CollaborationsSection = ({ collaborations, fetchCollaborations }) => {
   // Update status in backend
   const updateStatus = async (id, newStatus, collab) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/collaborations/${id}`, {
+      const res = await fetch(`https://paalas-backend.onrender.com/api/collaborations/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CollaborationsSection from "./CollaborationsSection";
 
+const API_BASE_URL = "https://paalas-backend.onrender.com";
+
 const FormPage = () => {
   const [formData, setFormData] = useState({
     title: "",
@@ -16,10 +18,9 @@ const FormPage = () => {
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
 
-  // Fetch videos
   const fetchVideos = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/videos");
+      const res = await fetch(`${API_BASE_URL}/api/videos`);
       const data = await res.json();
       setVideos(data);
     } catch (err) {
@@ -27,10 +28,9 @@ const FormPage = () => {
     }
   };
 
-  // Fetch collaborations
   const fetchCollaborations = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/collaborations");
+      const res = await fetch(`${API_BASE_URL}/api/collaborations`);
       const data = await res.json();
       setCollaborations(data);
     } catch (err) {
@@ -43,7 +43,6 @@ const FormPage = () => {
     fetchCollaborations();
   }, []);
 
-  // Handle input
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -52,13 +51,12 @@ const FormPage = () => {
     }));
   };
 
-  // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     const method = editMode ? "PUT" : "POST";
     const endpoint = editMode
-      ? `http://localhost:5000/api/videos/${editId}`
-      : "http://localhost:5000/api/videos";
+      ? `${API_BASE_URL}/api/videos/${editId}`
+      : `${API_BASE_URL}/api/videos`;
 
     try {
       const res = await fetch(endpoint, {
@@ -88,11 +86,10 @@ const FormPage = () => {
   };
 
   const handleDelete = async (id) => {
-    const confirm = window.confirm("Are you sure you want to delete this video?");
-    if (!confirm) return;
+    if (!window.confirm("Are you sure you want to delete this video?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/videos/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/videos/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Delete failed");
@@ -104,10 +101,9 @@ const FormPage = () => {
   };
 
   const deleteCollaboration = async (id) => {
-    const confirm = window.confirm("Are you sure you want to delete this collaboration?");
-    if (!confirm) return;
+    if (!window.confirm("Are you sure you want to delete this collaboration?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/collaborations/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/collaborations/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Delete failed");
@@ -118,9 +114,8 @@ const FormPage = () => {
     }
   };
 
-  const getTopVideo = (videos, key) => {
-    return [...videos].sort((a, b) => b[key] - a[key])[0];
-  };
+  const getTopVideo = (videos, key) =>
+    [...videos].sort((a, b) => b[key] - a[key])[0];
 
   const OverviewCard = ({ title, value }) => (
     <div
@@ -163,7 +158,7 @@ const FormPage = () => {
         </nav>
       </aside>
 
-      {/* Main Content */}
+      {/* Main */}
       <main style={{ flex: 1, padding: "2rem" }}>
         {activeSection === "overview" && (
           <>
@@ -241,52 +236,12 @@ const FormPage = () => {
               onSubmit={handleSubmit}
               style={{ maxWidth: "500px", display: "flex", flexDirection: "column", gap: "1rem" }}
             >
-              <input
-                type="text"
-                name="title"
-                placeholder="Video Title"
-                value={formData.title}
-                onChange={handleChange}
-                required
-                style={inputStyle}
-              />
-              <input
-                type="text"
-                name="url"
-                placeholder="YouTube Video URL"
-                value={formData.url}
-                onChange={handleChange}
-                required
-                style={inputStyle}
-              />
-              <textarea
-                name="description"
-                placeholder="Video Description"
-                value={formData.description}
-                onChange={handleChange}
-                rows="4"
-                required
-                style={{ ...inputStyle, resize: "vertical" }}
-              />
+              <input type="text" name="title" placeholder="Video Title" value={formData.title} onChange={handleChange} required style={inputStyle} />
+              <input type="text" name="url" placeholder="YouTube Video URL" value={formData.url} onChange={handleChange} required style={inputStyle} />
+              <textarea name="description" placeholder="Video Description" value={formData.description} onChange={handleChange} rows="4" required style={{ ...inputStyle, resize: "vertical" }} />
               <div style={{ display: "flex", gap: "1rem" }}>
-                <input
-                  type="number"
-                  name="likes"
-                  value={formData.likes}
-                  onChange={handleChange}
-                  min="0"
-                  style={{ ...inputStyle, width: "50%" }}
-                  placeholder="👍 Likes"
-                />
-                <input
-                  type="number"
-                  name="dislikes"
-                  value={formData.dislikes}
-                  onChange={handleChange}
-                  min="0"
-                  style={{ ...inputStyle, width: "50%" }}
-                  placeholder="👎 Dislikes"
-                />
+                <input type="number" name="likes" value={formData.likes} onChange={handleChange} min="0" style={{ ...inputStyle, width: "50%" }} placeholder="👍 Likes" />
+                <input type="number" name="dislikes" value={formData.dislikes} onChange={handleChange} min="0" style={{ ...inputStyle, width: "50%" }} placeholder="👎 Dislikes" />
               </div>
               <button type="submit" style={submitStyle}>
                 {editMode ? "✅ Update Video" : "✅ Submit Video"}

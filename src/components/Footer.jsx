@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaGithub, FaLinkedin, FaEnvelope, FaArrowUp } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram, FaYoutube, FaArrowUp } from "react-icons/fa";
 
 const Footer = () => {
   const [showScroll, setShowScroll] = useState(false);
@@ -54,42 +54,37 @@ const Footer = () => {
     transition: "background 0.3s ease",
   };
 
-  const quoteStyle = {
-    fontStyle: "italic",
-    margin: "1.5rem auto 1rem",
-    maxWidth: "700px",
-    color: "#eee",
-    fontSize: "1rem",
-    lineHeight: "1.6",
-  };
-
   return (
     <footer style={footerStyle}>
       <div>
         <a
-          href="https://github.com/yourusername"
+          href="mailto:palas30413@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FaGithub
+          <FaEnvelope
             style={iconStyle}
             onMouseOver={(e) => (e.target.style.color = "#ccc")}
             onMouseOut={(e) => (e.target.style.color = "#00f7ff")}
           />
         </a>
         <a
-          href="https://linkedin.com/in/yourusername"
+          href="https://www.instagram.com/paalas__?igsh=bzZqZDdscWxkMnJq"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FaLinkedin
+          <FaInstagram
             style={iconStyle}
             onMouseOver={(e) => (e.target.style.color = "#ccc")}
             onMouseOut={(e) => (e.target.style.color = "#00f7ff")}
           />
         </a>
-        <a href="mailto:your-email@example.com">
-          <FaEnvelope
+        <a
+          href="https://youtube.com/@paalas_?si=pxHH8CT0O_6BYpnM"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaYoutube
             style={iconStyle}
             onMouseOver={(e) => (e.target.style.color = "#ccc")}
             onMouseOut={(e) => (e.target.style.color = "#00f7ff")}
@@ -97,9 +92,8 @@ const Footer = () => {
         </a>
       </div>
 
-
       <p style={{ color: "#aaa", marginTop: "1rem" }}>
-        © {new Date().getFullYear()} Your Name. All rights reserved.
+        © {new Date().getFullYear()} All rights reserved. Developed by <strong>Devendra Gupta</strong>.
       </p>
 
       {showScroll && (

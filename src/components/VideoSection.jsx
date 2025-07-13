@@ -19,7 +19,7 @@ const VideoSection = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/videos");
+        const res = await fetch("https://paalas-backend.onrender.com/api/videos");
         const data = await res.json();
         setVideos(data);
       } catch (err) {
@@ -31,7 +31,7 @@ const VideoSection = () => {
 
   const getYouTubeId = (url) => {
     const regex =
-      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/)||youtu\.be\/)([a-zA-Z0-9_-]{11})/;
     const match = url.match(regex);
     return match ? match[1] : null;
   };
@@ -43,7 +43,7 @@ const VideoSection = () => {
     setVideos(updated);
 
     try {
-      await fetch(`http://localhost:5000/api/videos/${id}`, {
+      await fetch(`https://paalas-backend.onrender.com/api/videos/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ likes: updated[index].likes }),
@@ -60,7 +60,7 @@ const VideoSection = () => {
     setVideos(updated);
 
     try {
-      await fetch(`http://localhost:5000/api/videos/${id}`, {
+      await fetch(`https://paalas-backend.onrender.com/api/videos/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ dislikes: updated[index].dislikes }),
